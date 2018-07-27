@@ -29,5 +29,17 @@ public class SimpleCheckoutFeature {
 
     assertThat(price.getValue()).isEqualTo(50);
   }
+  
+  @Test
+  public void scanMultipleDifferentItems() {
+    Item item1 = new Item("A", 50);
+    Item item2 = new Item("B", 30);
+
+    scannerService.scan(item1);
+    List<Item> scannedItems = scannerService.scan(item2);
+    Price price = checkoutService.checkout(scannedItems);
+
+    assertThat(price.getValue()).isEqualTo(80);
+  }
 
 }
