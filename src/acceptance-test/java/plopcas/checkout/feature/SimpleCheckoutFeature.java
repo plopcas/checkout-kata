@@ -25,9 +25,9 @@ public class SimpleCheckoutFeature {
     Item item1 = new Item("A", 50);
 
     List<Item> scannedItems = scannerService.scan(item1);
-    Price price = checkoutService.checkout(scannedItems);
+    Price total = checkoutService.checkout(scannedItems);
 
-    assertThat(price.getValue()).isEqualTo(50);
+    assertThat(total.getValue()).isEqualTo(50);
   }
   
   @Test
@@ -37,9 +37,9 @@ public class SimpleCheckoutFeature {
 
     scannerService.scan(item1);
     List<Item> scannedItems = scannerService.scan(item2);
-    Price price = checkoutService.checkout(scannedItems);
+    Price total = checkoutService.checkout(scannedItems);
 
-    assertThat(price.getValue()).isEqualTo(80);
+    assertThat(total.getValue()).isEqualTo(80);
   }
 
 }

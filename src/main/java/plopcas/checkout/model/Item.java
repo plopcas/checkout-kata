@@ -9,4 +9,8 @@ public class Item {
     this.price = price;
   }
 
+  public Integer getPrice() {
+    return price;
+  }
+
 }
