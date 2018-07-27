@@ -23,7 +23,7 @@ public class SimpleCheckoutFeature {
   @Test
   public void scanSingleItem() {
     Cart cart = new Cart();
-    
+
     Item item1 = new Item("A", 50);
 
     cart = scannerService.scan(item1, cart);
@@ -31,11 +31,11 @@ public class SimpleCheckoutFeature {
 
     assertThat(total.getValue()).isEqualTo(50);
   }
-  
+
   @Test
   public void scanMultipleDifferentItems() {
     Cart cart = new Cart();
-    
+
     Item item1 = new Item("A", 50);
     Item item2 = new Item("B", 30);
 
