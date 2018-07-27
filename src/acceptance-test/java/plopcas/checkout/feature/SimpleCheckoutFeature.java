@@ -45,5 +45,21 @@ public class SimpleCheckoutFeature {
 
     assertThat(total.getValue()).isEqualTo(80);
   }
+  
+  @Test
+  public void scanMultipleSameItems() {
+    Cart cart = new Cart();
+
+    Item item1 = new Item("A", 50);
+    Item item2 = new Item("C", 20);
+    Item item3 = new Item("C", 20);
+
+    cart = scannerService.scan(item1, cart);
+    cart = scannerService.scan(item2, cart);
+    cart = scannerService.scan(item3, cart);
+    Price total = checkoutService.checkout(cart);
+
+    assertThat(total.getValue()).isEqualTo(90);
+  }
 
 }

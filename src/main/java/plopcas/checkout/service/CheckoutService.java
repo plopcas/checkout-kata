@@ -10,7 +10,6 @@ import plopcas.checkout.model.Price;
 public class CheckoutService {
 
   public Price checkout(Cart cart) {
-
     if (cart == null) {
       throw new CartNotValidException("Cart is null");
     }
@@ -18,7 +17,6 @@ public class CheckoutService {
     Integer total = cart.getItems().stream().filter(Objects::nonNull).map(Item::getPrice)
         .collect(Collectors.summingInt(Integer::intValue));
     return new Price(total);
-
   }
 
 }
