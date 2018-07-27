@@ -1,9 +1,9 @@
 package plopcas.checkout.feature;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import plopcas.checkout.model.Cart;
 import plopcas.checkout.model.Item;
 import plopcas.checkout.model.Price;
 import plopcas.checkout.service.CheckoutService;
@@ -22,22 +22,26 @@ public class SimpleCheckoutFeature {
 
   @Test
   public void scanSingleItem() {
+    Cart cart = new Cart();
+    
     Item item1 = new Item("A", 50);
 
-    List<Item> scannedItems = scannerService.scan(item1);
-    Price total = checkoutService.checkout(scannedItems);
+    cart = scannerService.scan(item1, cart);
+    Price total = checkoutService.checkout(cart);
 
     assertThat(total.getValue()).isEqualTo(50);
   }
   
   @Test
   public void scanMultipleDifferentItems() {
+    Cart cart = new Cart();
+    
     Item item1 = new Item("A", 50);
     Item item2 = new Item("B", 30);
 
-    scannerService.scan(item1);
-    List<Item> scannedItems = scannerService.scan(item2);
-    Price total = checkoutService.checkout(scannedItems);
+    cart = scannerService.scan(item1, cart);
+    cart = scannerService.scan(item2, cart);
+    Price total = checkoutService.checkout(cart);
 
     assertThat(total.getValue()).isEqualTo(80);
   }
