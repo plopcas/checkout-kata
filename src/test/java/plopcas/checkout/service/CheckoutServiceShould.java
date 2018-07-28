@@ -1,7 +1,6 @@
 package plopcas.checkout.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -9,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 import plopcas.checkout.exception.CartNotValidException;
 import plopcas.checkout.model.Cart;
 import plopcas.checkout.model.Item;
+import plopcas.checkout.model.Result;
 
 public class CheckoutServiceShould {
 
@@ -26,18 +26,18 @@ public class CheckoutServiceShould {
     cart.add(itemA());
     cart.add(itemB());
 
-    Integer total = checkoutService.checkout(cart);
+    Result result = checkoutService.checkout(cart);
 
-    assertThat(total).isEqualTo(80);
+    assertThat(result.getToPay()).isEqualTo(80);
   }
 
   @Test
   public void checkoutEmptyCart() {
     Cart cart = new Cart();
 
-    Integer total = checkoutService.checkout(cart);
+    Result result = checkoutService.checkout(cart);
 
-    assertThat(total).isEqualTo(0);
+    assertThat(result.getToPay()).isEqualTo(0);
   }
 
   @Test
@@ -46,9 +46,9 @@ public class CheckoutServiceShould {
     cart.add(itemA());
     cart.add(null);
 
-    Integer total = checkoutService.checkout(cart);
+    Result result = checkoutService.checkout(cart);
 
-    assertThat(total).isEqualTo(50);
+    assertThat(result.getToPay()).isEqualTo(50);
   }
 
   @Test(expected = CartNotValidException.class)

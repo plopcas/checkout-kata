@@ -6,6 +6,7 @@ import org.junit.Test;
 import plopcas.checkout.model.Cart;
 import plopcas.checkout.model.Discount;
 import plopcas.checkout.model.Item;
+import plopcas.checkout.model.Result;
 import plopcas.checkout.service.CheckoutService;
 import plopcas.checkout.service.ScannerService;
 
@@ -26,9 +27,9 @@ public class ComplexCheckoutFeature {
     cart = scannerService.scan(itemA(), cart);
     cart = scannerService.scan(itemA(), cart);
     cart = scannerService.scan(itemA(), cart);
-    Integer total = checkoutService.checkout(cart);
+    Result result = checkoutService.checkout(cart);
 
-    assertThat(total).isEqualTo(130);
+    assertThat(result.getToPay()).isEqualTo(130);
   }
 
   @Test
@@ -41,9 +42,9 @@ public class ComplexCheckoutFeature {
     cart = scannerService.scan(itemA(), cart);
     cart = scannerService.scan(itemA(), cart);
     cart = scannerService.scan(itemA(), cart);
-    Integer total = checkoutService.checkout(cart);
+    Result result = checkoutService.checkout(cart);
 
-    assertThat(total).isEqualTo(260);
+    assertThat(result.getToPay()).isEqualTo(260);
   }
 
   private Item itemA() {

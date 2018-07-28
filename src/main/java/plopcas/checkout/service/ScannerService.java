@@ -10,9 +10,11 @@ public class ScannerService {
     if (cart == null) {
       throw new CartNotValidException("Cart is null");
     }
+    
     if (item != null) {
       cart.getItems().add(item);
     }
+    
     return cart;
   }
 
