@@ -2,6 +2,7 @@ package plopcas.checkout.service;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import plopcas.checkout.exception.CartNotValidException;
 import plopcas.checkout.model.Cart;
@@ -39,16 +40,16 @@ public class CheckoutService {
 
       Item item = entry.getKey();
       Long count = entry.getValue();
-      Discount discount = item.getDiscount();
+      Optional<Discount> discount = item.getDiscount();
 
-      if (discount == null) {
+      if (!discount.isPresent()) {
         return 0;
       } else {
-        Long times = count / discount.getCount();
-        return discount.getValue() * times.intValue();
+        Long times = count / discount.get().getCount();
+        return discount.get().getValue() * times.intValue();
       }
 
     }).collect(Collectors.summingInt(Integer::intValue));
   }
-  
+
 }

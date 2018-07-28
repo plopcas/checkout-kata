@@ -1,20 +1,23 @@
 package plopcas.checkout.model;
 
+import java.util.Optional;
+
 public class Item {
 
   private String id;
   private Integer price;
-  private Discount discount;
+  private Optional<Discount> discount;
 
   public Item(String id, Integer price) {
     this.id = id;
     this.price = price;
+    this.discount = Optional.empty();
   }
 
   public Item(String id, Integer price, Discount discount) {
     this.id = id;
     this.price = price;
-    this.discount = discount;
+    this.discount = Optional.of(discount);
   }
 
   public String getId() {
@@ -25,9 +28,10 @@ public class Item {
     return price;
   }
 
-  public Discount getDiscount() {
+  public Optional<Discount> getDiscount() {
     return discount;
   }
+
 
   @Override
   public int hashCode() {
