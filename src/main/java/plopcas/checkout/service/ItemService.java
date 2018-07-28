@@ -12,7 +12,7 @@ public class ItemService {
   }
 
   public Item find(String itemId) {
-    return null;
+    return pricingRules.get(itemId);
   }
 
 }

@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 import plopcas.checkout.model.Cart;
+import plopcas.checkout.model.Discount;
+import plopcas.checkout.model.Item;
 import plopcas.checkout.model.PricingRules;
 import plopcas.checkout.model.Result;
 import plopcas.checkout.service.CheckoutService;
@@ -31,9 +33,10 @@ public class PricingFeature {
   @Test
   public void simpleCheckoutWithPricingRules() {
     PricingRules pricingRules = new PricingRules();
-    
+    pricingRules.put("A", new Item("A", 50));
+
     itemService = new ItemService(pricingRules);
-    
+
     Cart cart = new Cart();
 
     cart = scannerService.scan(itemService.find("A"), cart);
