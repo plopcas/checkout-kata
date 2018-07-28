@@ -1,11 +1,11 @@
 package plopcas.checkout.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import plopcas.checkout.exception.CartNotValidException;
 import plopcas.checkout.model.Cart;
 import plopcas.checkout.model.Item;
 
@@ -52,6 +52,11 @@ public class ScannerServiceShould {
     cart = scannerService.scan(null, cart);
 
     assertThat(cart.getItems()).containsExactly(itemA());
+  }
+
+  @Test(expected = CartNotValidException.class)
+  public void failWhenCartIsNull() {
+    scannerService.scan(itemA(), null);
   }
 
   private Item itemA() {
