@@ -22,8 +22,7 @@ import plopcas.checkout.service.ScannerService;
  * so that I can be reconfigure the prices and deals on demand
  */
 public class PricingFeature {
-  private static final String PRICING_RULES_PATH = "src/acceptance-test/resources/pricing_rules.csv";
-  
+
   private ScannerService scannerService;
   private CheckoutService checkoutService;
   private ItemService itemService;
@@ -33,7 +32,6 @@ public class PricingFeature {
   public void setUp() {
     scannerService = new ScannerService();
     checkoutService = new CheckoutService();
-    pricingService = new PricingService(new File(PRICING_RULES_PATH));
   }
 
   @Test
@@ -76,7 +74,10 @@ public class PricingFeature {
   }
 
   @Test
-  public void complexCheckoutWithPricingRulesFromFile() {
+  public void complexCheckoutWithExternalPricingRules() {
+    pricingService =
+        new PricingService(new File("src/acceptance-test/resources/pricing_rules_1.csv"));
+    
     PricingRules pricingRules = pricingService.getPricingRules();
 
     itemService = new ItemService(pricingRules);
@@ -93,5 +94,28 @@ public class PricingFeature {
     Result result = checkoutService.checkout(cart);
 
     assertThat(result.getToPay()).isEqualTo(210);
+  }
+
+  @Test
+  public void complexCheckoutWithDifferentExternalPricingRules() {
+    pricingService =
+        new PricingService(new File("src/acceptance-test/resources/pricing_rules_2.csv"));
+    
+    PricingRules pricingRules = pricingService.getPricingRules();
+
+    itemService = new ItemService(pricingRules);
+
+    Cart cart = new Cart();
+
+    cart = scannerService.scan(itemService.find("A"), cart);
+    cart = scannerService.scan(itemService.find("A"), cart);
+    cart = scannerService.scan(itemService.find("A"), cart);
+    cart = scannerService.scan(itemService.find("B"), cart);
+    cart = scannerService.scan(itemService.find("B"), cart);
+    cart = scannerService.scan(itemService.find("C"), cart);
+    cart = scannerService.scan(itemService.find("D"), cart);
+    Result result = checkoutService.checkout(cart);
+
+    assertThat(result.getToPay()).isEqualTo(250);
   }
 }
