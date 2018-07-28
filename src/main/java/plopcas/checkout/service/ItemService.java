@@ -1,6 +1,7 @@
 package plopcas.checkout.service;
 
 import plopcas.checkout.exception.ItemNotFoundException;
+import plopcas.checkout.exception.PricingRulesNotValidException;
 import plopcas.checkout.model.Item;
 import plopcas.checkout.model.PricingRules;
 
@@ -9,6 +10,9 @@ public class ItemService {
   private PricingRules pricingRules;
 
   public ItemService(PricingRules pricingRules) {
+    if (pricingRules == null) {
+      throw new PricingRulesNotValidException("Pricing rules are null");
+    }
     this.pricingRules = pricingRules;
   }
 
