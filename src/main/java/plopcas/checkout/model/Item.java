@@ -17,7 +17,11 @@ public class Item {
   public Item(String id, Integer price, Discount discount) {
     this.id = id;
     this.price = price;
-    this.discount = Optional.of(discount);
+    if (discount != null) {
+      this.discount = Optional.of(discount);
+    } else {
+      this.discount = Optional.empty();
+    }
   }
 
   public String getId() {
