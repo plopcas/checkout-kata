@@ -31,25 +31,12 @@ public class CheckoutController {
     Cart cart = new Cart();
 
     String itemId = first(cart);
-    
-    Item item = null;
-    try {
-      item = itemService.find(itemId);
-    } catch (ItemNotFoundException e) {
-      System.err.println(format("Item %s not found", itemId));
-    }
-    
-    scannerService.scan(item, cart);
+
+    scannerService.scan(findItem(itemId), cart);
 
     itemId = next(cart);
     while (!END.equalsIgnoreCase(itemId.trim())) {
-      item = null;
-      try {
-        item = itemService.find(itemId);
-      } catch (ItemNotFoundException e) {
-        System.err.println(format("Item %s not found", itemId));
-      }
-      scannerService.scan(item, cart);
+      scannerService.scan(findItem(itemId), cart);
       itemId = next(cart);
     }
 
@@ -77,6 +64,16 @@ public class CheckoutController {
       System.out.println(" - " + result.getDiscount() + " (discounts)");
     }
     System.out.println("To pay: " + result.getToPay());
+  }
+
+  private Item findItem(String itemId) {
+    Item item = null;
+    try {
+      item = itemService.find(itemId);
+    } catch (ItemNotFoundException e) {
+      System.err.println(format("Item %s not found", itemId));
+    }
+    return item;
   }
 }
 
