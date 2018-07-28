@@ -1,6 +1,7 @@
 package plopcas.checkout.feature;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import java.io.File;
 import org.junit.Before;
 import org.junit.Test;
 import plopcas.checkout.model.Cart;
@@ -10,6 +11,7 @@ import plopcas.checkout.model.PricingRules;
 import plopcas.checkout.model.Result;
 import plopcas.checkout.service.CheckoutService;
 import plopcas.checkout.service.ItemService;
+import plopcas.checkout.service.PricingService;
 import plopcas.checkout.service.ScannerService;
 
 /**
@@ -20,14 +22,18 @@ import plopcas.checkout.service.ScannerService;
  * so that I can be reconfigure the prices and deals on demand
  */
 public class PricingFeature {
+  private static final String PRICING_RULES_PATH = "src/acceptance-test/resources/pricing_rules.csv";
+  
   private ScannerService scannerService;
   private CheckoutService checkoutService;
   private ItemService itemService;
+  private PricingService pricingService;
 
   @Before
   public void setUp() {
     scannerService = new ScannerService();
     checkoutService = new CheckoutService();
+    pricingService = new PricingService(new File(PRICING_RULES_PATH));
   }
 
   @Test
@@ -44,7 +50,7 @@ public class PricingFeature {
 
     assertThat(result.getToPay()).isEqualTo(50);
   }
-  
+
   @Test
   public void complexCheckoutWithPricingRules() {
     PricingRules pricingRules = new PricingRules();
@@ -52,6 +58,26 @@ public class PricingFeature {
     pricingRules.put("B", new Item("B", 30, new Discount(2, 15)));
     pricingRules.put("C", new Item("C", 20));
     pricingRules.put("D", new Item("D", 15));
+
+    itemService = new ItemService(pricingRules);
+
+    Cart cart = new Cart();
+
+    cart = scannerService.scan(itemService.find("A"), cart);
+    cart = scannerService.scan(itemService.find("A"), cart);
+    cart = scannerService.scan(itemService.find("A"), cart);
+    cart = scannerService.scan(itemService.find("B"), cart);
+    cart = scannerService.scan(itemService.find("B"), cart);
+    cart = scannerService.scan(itemService.find("C"), cart);
+    cart = scannerService.scan(itemService.find("D"), cart);
+    Result result = checkoutService.checkout(cart);
+
+    assertThat(result.getToPay()).isEqualTo(210);
+  }
+
+  @Test
+  public void complexCheckoutWithPricingRulesFromFile() {
+    PricingRules pricingRules = pricingService.getPricingRules();
 
     itemService = new ItemService(pricingRules);
 
