@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import org.apache.commons.lang3.StringUtils;
-import plopcas.checkout.exception.CsvFormatNotValid;
+import plopcas.checkout.exception.CsvFormatNotValidException;
 import plopcas.checkout.exception.PricingRulesNotFoundException;
 import plopcas.checkout.exception.PricingRulesNotValidException;
 import plopcas.checkout.model.Discount;
@@ -71,7 +71,7 @@ public class PricingService {
         || !"PRICE".equals(headerTokens[1])
         || !"UNITS_FOR_DISCOUNT".equals(headerTokens[2])
         || !"DISCOUNT".equals(headerTokens[3])) {
-      throw new CsvFormatNotValid("CSV does not match ID,PRICE,UNITS_FOR_DISCOUNT,DISCOUNT");
+      throw new CsvFormatNotValidException("CSV does not match ID,PRICE,UNITS_FOR_DISCOUNT,DISCOUNT");
     }
   }
 

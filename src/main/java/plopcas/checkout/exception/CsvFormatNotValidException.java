@@ -1,15 +1,15 @@
 package plopcas.checkout.exception;
 
-public class CsvFormatNotValid extends RuntimeException {
+public class CsvFormatNotValidException extends RuntimeException {
 
   // Automatically generated
   private static final long serialVersionUID = -8433791596693464617L;
 
-  public CsvFormatNotValid() {
+  public CsvFormatNotValidException() {
     super();
   }
 
-  public CsvFormatNotValid(String message) {
+  public CsvFormatNotValidException(String message) {
     super(message);
   }
 

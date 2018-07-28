@@ -36,8 +36,8 @@ public class CheckoutControllerShould {
   }
 
   @Test
-  public void handleCheckoutTransaction() throws FileNotFoundException {
-    
+  public void handleCheckoutTransaction() throws FileNotFoundException, ItemNotFoundException {
+  
     File userInputFile = new File("src/test/resources/user_input_ok.txt");
     Scanner sc = new Scanner(userInputFile);
 
@@ -59,8 +59,9 @@ public class CheckoutControllerShould {
   }
   
   @Test
-  public void handleCheckoutTransaction_multipleItems() throws FileNotFoundException {
-    
+  public void handleCheckoutTransaction_multipleItems()
+      throws FileNotFoundException, ItemNotFoundException {
+ 
     File userInputFile = new File("src/test/resources/user_input_ok_multiple.txt");
     Scanner sc = new Scanner(userInputFile);
 
@@ -82,8 +83,9 @@ public class CheckoutControllerShould {
   }
   
   @Test
-  public void handleCheckoutTransaction_wrongItem() throws FileNotFoundException {
-    
+  public void handleCheckoutTransaction_wrongItem()
+      throws FileNotFoundException, ItemNotFoundException {
+  
     File userInputFile = new File("src/test/resources/user_input_wrong_item.txt");
     Scanner sc = new Scanner(userInputFile);
 

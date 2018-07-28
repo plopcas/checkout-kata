@@ -1,7 +1,10 @@
 package plopcas.checkout.controller;
 
+import static java.lang.String.format;
 import java.util.Scanner;
+import plopcas.checkout.exception.ItemNotFoundException;
 import plopcas.checkout.model.Cart;
+import plopcas.checkout.model.Item;
 import plopcas.checkout.model.Result;
 import plopcas.checkout.service.CheckoutService;
 import plopcas.checkout.service.ItemService;
@@ -28,12 +31,25 @@ public class CheckoutController {
     Cart cart = new Cart();
 
     String itemId = first(cart);
-
-    scannerService.scan(itemService.find(itemId), cart);
+    
+    Item item = null;
+    try {
+      item = itemService.find(itemId);
+    } catch (ItemNotFoundException e) {
+      System.err.println(format("Item %s not found", itemId));
+    }
+    
+    scannerService.scan(item, cart);
 
     itemId = next(cart);
     while (!END.equalsIgnoreCase(itemId.trim())) {
-      scannerService.scan(itemService.find(itemId), cart);
+      item = null;
+      try {
+        item = itemService.find(itemId);
+      } catch (ItemNotFoundException e) {
+        System.err.println(format("Item %s not found", itemId));
+      }
+      scannerService.scan(item, cart);
       itemId = next(cart);
     }
 
