@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import org.apache.commons.lang3.StringUtils;
+import plopcas.checkout.exception.CsvFormatNotValid;
+import plopcas.checkout.exception.PricingRulesNotFoundException;
 import plopcas.checkout.exception.PricingRulesNotValidException;
 import plopcas.checkout.model.Discount;
 import plopcas.checkout.model.Item;
@@ -18,6 +20,9 @@ public class PricingService {
   private File pricingRulesFile;
 
   public PricingService(File pricingRulesFile) {
+    if (!pricingRulesFile.exists()) {
+      throw new PricingRulesNotFoundException();
+    }
     this.pricingRulesFile = pricingRulesFile;
   }
 
@@ -28,12 +33,11 @@ public class PricingService {
     String line = StringUtils.EMPTY;
 
     try (BufferedReader br = new BufferedReader(new FileReader(pricingRulesFile))) {
-      
-      // Skip header
-      br.readLine();
+
+      // Check header
+      validateCsvHeader(br.readLine());
 
       while ((line = br.readLine()) != null) {
-
         String[] itemTokens = line.split(CSV_SPLIT_BY);
 
         Discount discount = getDiscount(itemTokens);
@@ -58,6 +62,17 @@ public class PricingService {
     }
 
     return discount;
+  }
+
+  private void validateCsvHeader(String header) {
+    String[] headerTokens = header.split(CSV_SPLIT_BY);
+    if (headerTokens.length != 4
+        || !"ID".equals(headerTokens[0])
+        || !"PRICE".equals(headerTokens[1])
+        || !"UNITS_FOR_DISCOUNT".equals(headerTokens[2])
+        || !"DISCOUNT".equals(headerTokens[3])) {
+      throw new CsvFormatNotValid("CSV does not match ID,PRICE,UNITS_FOR_DISCOUNT,DISCOUNT");
+    }
   }
 
 }

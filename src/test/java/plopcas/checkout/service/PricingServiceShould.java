@@ -22,14 +22,25 @@ public class PricingServiceShould {
 
   @Test
   public void getPricingRulesFromFile() {
-    pricingService =
-        new PricingService(new File("src/test/resources/pricing_rules_ok.csv"));
+    pricingService = new PricingService(new File("src/test/resources/pricing_rules_ok.csv"));
 
     PricingRules expectedPricingRules = new PricingRules();
     expectedPricingRules.put("A", new Item("A", 50, new Discount(3, 20)));
     expectedPricingRules.put("B", new Item("B", 30, new Discount(2, 15)));
     expectedPricingRules.put("C", new Item("C", 20));
     expectedPricingRules.put("D", new Item("D", 15));
+    expectedPricingRules.put("E", new Item("E", 1));
+
+    PricingRules pricingRules = pricingService.getPricingRules();
+
+    assertThat(pricingRules).isEqualTo(expectedPricingRules);
+  }
+  
+  @Test
+  public void handleEmptyPricingRulesWithOnlyHeader() {
+    pricingService = new PricingService(new File("src/test/resources/pricing_rules_only_header.csv"));
+
+    PricingRules expectedPricingRules = new PricingRules();
 
     PricingRules pricingRules = pricingService.getPricingRules();
 
@@ -38,18 +49,58 @@ public class PricingServiceShould {
 
   @Test(expected = PricingRulesNotFoundException.class)
   public void failWhenPricingRulesNotExist() {
-    pricingService =
-        new PricingService(new File("src/test/resources/pricing_rules_???.csv"));
-    
+    pricingService = new PricingService(new File("src/test/resources/pricing_rules_???.csv"));
+
     pricingService.getPricingRules();
   }
 
   @Test(expected = PricingRulesNotValidException.class)
   public void failWhenPricingRulesNotValid() {
-    pricingService =
-        new PricingService(new File("src/test/resources/pricing_rules_not_valid.csv"));
-    
+    pricingService = new PricingService(new File("src/test/resources/pricing_rules_not_valid.csv"));
+
     pricingService.getPricingRules();
   }
 
+  @Test(expected = PricingRulesNotValidException.class)
+  public void failWhenPricingRulesHeaderNotValid_allWrong() {
+    pricingService = new PricingService(new File("src/test/resources/pricing_rules_header_not_valid_1.csv"));
+
+    pricingService.getPricingRules();
+  }
+  
+  @Test(expected = PricingRulesNotValidException.class)
+  public void failWhenPricingRulesHeaderNotValid_threeWrong() {
+    pricingService = new PricingService(new File("src/test/resources/pricing_rules_header_not_valid_2.csv"));
+
+    pricingService.getPricingRules();
+  }
+  
+  @Test(expected = PricingRulesNotValidException.class)
+  public void failWhenPricingRulesHeaderNotValid_twoWrong() {
+    pricingService = new PricingService(new File("src/test/resources/pricing_rules_header_not_valid_3.csv"));
+
+    pricingService.getPricingRules();
+  }
+  
+  @Test(expected = PricingRulesNotValidException.class)
+  public void failWhenPricingRulesHeaderNotValid_oneWrong() {
+    pricingService = new PricingService(new File("src/test/resources/pricing_rules_header_not_valid_4.csv"));
+
+    pricingService.getPricingRules();
+  }
+  
+  @Test(expected = PricingRulesNotValidException.class)
+  public void failWhenPricingRulesHeaderNotValid_numberWrong() {
+    pricingService = new PricingService(new File("src/test/resources/pricing_rules_header_not_valid_5.csv"));
+
+    pricingService.getPricingRules();
+  }
+  
+  @Test(expected = PricingRulesNotValidException.class)
+  public void failWhenPricingRulesIsEmpty() {
+    pricingService = new PricingService(new File("src/test/resources/pricing_rules_empty.csv"));
+
+    pricingService.getPricingRules();
+  }
+  
 }
