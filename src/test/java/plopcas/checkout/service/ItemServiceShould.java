@@ -26,6 +26,7 @@ public class ItemServiceShould {
 
   @Test
   public void findItemById() {
+    when(pricingRules.containsKey(eq("A"))).thenReturn(true);
     when(pricingRules.get(eq("A"))).thenReturn(itemA());
 
     Item item = itemService.find("A");
@@ -35,6 +36,8 @@ public class ItemServiceShould {
 
   @Test(expected = ItemNotFoundException.class)
   public void notFindItemIfIdNotExist() {
+    when(pricingRules.containsKey(eq("Z"))).thenReturn(false);
+    
     itemService.find("Z");
   }
 
