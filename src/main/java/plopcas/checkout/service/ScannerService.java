@@ -6,7 +6,9 @@ import plopcas.checkout.model.Item;
 public class ScannerService {
 
   public Cart scan(Item item, Cart cart) {
-    cart.getItems().add(item);
+    if (item != null) {
+      cart.getItems().add(item);
+    }
     return cart;
   }
 
