@@ -116,6 +116,6 @@ public class PricingFeature {
     cart = scannerService.scan(itemService.find("D"), cart);
     Result result = checkoutService.checkout(cart);
 
-    assertThat(result.getToPay()).isEqualTo(250);
+    assertThat(result.getToPay()).isEqualTo(245);
   }
 }
