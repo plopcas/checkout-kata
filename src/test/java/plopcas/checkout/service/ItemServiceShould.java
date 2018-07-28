@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import plopcas.checkout.exception.ItemNotFoundException;
+import plopcas.checkout.exception.PricingRulesNotValidException;
 import plopcas.checkout.model.Item;
 import plopcas.checkout.model.PricingRules;
 
@@ -35,10 +36,15 @@ public class ItemServiceShould {
   }
 
   @Test(expected = ItemNotFoundException.class)
-  public void notFindItemIfIdNotExist() {
+  public void failWhenItemNotFound() {
     when(pricingRules.containsKey(eq("Z"))).thenReturn(false);
-    
+
     itemService.find("Z");
+  }
+
+  @Test(expected = PricingRulesNotValidException.class)
+  public void failWhenPricingRulesNotValid() {
+    new ItemService(null);
   }
 
   private Item itemA() {
