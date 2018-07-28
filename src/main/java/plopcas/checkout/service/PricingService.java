@@ -1,17 +1,17 @@
 package plopcas.checkout.service;
 
 import static java.lang.Integer.parseInt;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static plopcas.checkout.utils.StringUtils.isNotBlank;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import org.apache.commons.lang3.StringUtils;
 import plopcas.checkout.exception.CsvFormatNotValidException;
 import plopcas.checkout.exception.PricingRulesNotFoundException;
 import plopcas.checkout.exception.PricingRulesNotValidException;
 import plopcas.checkout.model.Discount;
 import plopcas.checkout.model.Item;
 import plopcas.checkout.model.PricingRules;
+import plopcas.checkout.utils.StringUtils;
 
 public class PricingService {
 
