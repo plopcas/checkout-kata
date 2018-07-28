@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 import plopcas.checkout.model.Cart;
-import plopcas.checkout.model.Discount;
 import plopcas.checkout.model.Item;
 import plopcas.checkout.model.PricingRules;
 import plopcas.checkout.model.Result;
