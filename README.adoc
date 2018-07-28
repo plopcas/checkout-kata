@@ -1,5 +1,7 @@
 == Checkout Kata
 
+=== The problem
+
 Implement the code for a supermarket checkout that calculates the total price of a number of items.
 
 
@@ -28,3 +30,56 @@ the two B's and price them at 45 (for a total price so far of 95).
 
 Extra points: Because the pricing changes frequently we will need to be able to pass in a set of pricing
 rules each time we start handling a checkout transaction.
+
+=== Instructions
+
+This is a gradle project. Standard practices apply.
+
+To run the tests (on Windows)
+
+```
+gradlew test acceptanceTest
+```
+
+To run the application
+
+```
+gradlew build
+java -jar build\libs\checkout-kata.jar
+```
+
+You will type the products one by one e.g. _A_, and press enter. Type END and press enter when you are done.
+Valid products are _A, B, C, D_. Pricing rules can be found at `src\main\resources\pricing_rules.csv`.
+
+
+The application with throw a message if an invalid or empty product is entered.
+
+
+=== Architecture Decision Records (ADR)
+
+
+A folder with the architectural decisions is available in `\adr`.
+
+
+Please read that first if you want to understand the asumptions made during this exercise.
+
+
+=== Outside-In TDD
+
+
+This exercise has been developed using Outside-In TDD starting with an acceptance test and writing unit tests once the high level feature was outlined, to cover the rest of the edge cases.
+
+As a result there are two folders with tests
+
+- acceptance-test
+- test
+
+The commit history will also outline the steps. I have left the different feature branches to provide a better insight into the process. In here there are basically three types of commits, following the RED-GREEN-REFACTOR TDD approach.
+
+- RED: add tests that make the build fail
+- GRN: add production code that make the tests pass
+- RFT: refactoring
+
+Additionally there are some other commits without a prefix, for things like documentation or minor changes that don't fit anywhere else.
+
+
