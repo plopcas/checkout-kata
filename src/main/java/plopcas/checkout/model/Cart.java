@@ -19,4 +19,9 @@ public class Cart {
     return this.items;
   }
 
+  @Override
+  public String toString() {
+    return "Cart [items=" + items + "]";
+  }
+
 }
