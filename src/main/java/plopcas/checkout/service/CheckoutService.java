@@ -7,11 +7,10 @@ import plopcas.checkout.exception.CartNotValidException;
 import plopcas.checkout.model.Cart;
 import plopcas.checkout.model.Discount;
 import plopcas.checkout.model.Item;
-import plopcas.checkout.model.Price;
 
 public class CheckoutService {
 
-  public Price checkout(Cart cart) {
+  public Integer checkout(Cart cart) {
     if (cart == null) {
       throw new CartNotValidException("Cart is null");
     }
@@ -19,7 +18,7 @@ public class CheckoutService {
     Integer total = calculateTotal(cart);
     Integer discount = calculateDiscount(cart);
 
-    return new Price(total - discount);
+    return total - discount;
   }
 
   private Integer calculateTotal(Cart cart) {
@@ -49,4 +48,5 @@ public class CheckoutService {
 
     }).collect(Collectors.summingInt(Integer::intValue));
   }
+  
 }
