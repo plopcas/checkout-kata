@@ -23,8 +23,8 @@ public class CheckoutServiceShould {
   @Test
   public void checkout() {
     Cart cart = new Cart();
-    cart.add(new Item("A", 50));
-    cart.add(new Item("B", 30));
+    cart.add(itemA());
+    cart.add(itemB());
 
     Price total = checkoutService.checkout(cart);
 
@@ -43,7 +43,7 @@ public class CheckoutServiceShould {
   @Test
   public void checkoutNullItems() {
     Cart cart = new Cart();
-    cart.add(new Item("A", 50));
+    cart.add(itemA());
     cart.add(null);
 
     Price total = checkoutService.checkout(cart);
@@ -54,6 +54,14 @@ public class CheckoutServiceShould {
   @Test(expected = CartNotValidException.class)
   public void failWhenCartIsNull() {
     checkoutService.checkout(null);
+  }
+
+  private Item itemA() {
+    return new Item("A", 50);
+  }
+
+  private Item itemB() {
+    return new Item("B", 30);
   }
 
 }

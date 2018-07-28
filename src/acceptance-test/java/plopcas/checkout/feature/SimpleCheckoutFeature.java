@@ -23,10 +23,8 @@ public class SimpleCheckoutFeature {
   @Test
   public void scanSingleItem() {
     Cart cart = new Cart();
-
-    Item item1 = new Item("A", 50);
-
-    cart = scannerService.scan(item1, cart);
+    
+    cart = scannerService.scan(itemA(), cart);
     Price total = checkoutService.checkout(cart);
 
     assertThat(total.getValue()).isEqualTo(50);
@@ -36,30 +34,35 @@ public class SimpleCheckoutFeature {
   public void scanMultipleDifferentItems() {
     Cart cart = new Cart();
 
-    Item item1 = new Item("A", 50);
-    Item item2 = new Item("B", 30);
-
-    cart = scannerService.scan(item1, cart);
-    cart = scannerService.scan(item2, cart);
+    cart = scannerService.scan(itemA(), cart);
+    cart = scannerService.scan(itemB(), cart);
     Price total = checkoutService.checkout(cart);
 
     assertThat(total.getValue()).isEqualTo(80);
   }
-  
+
   @Test
   public void scanMultipleSameItems() {
     Cart cart = new Cart();
 
-    Item item1 = new Item("A", 50);
-    Item item2 = new Item("C", 20);
-    Item item3 = new Item("C", 20);
-
-    cart = scannerService.scan(item1, cart);
-    cart = scannerService.scan(item2, cart);
-    cart = scannerService.scan(item3, cart);
+    cart = scannerService.scan(itemA(), cart);
+    cart = scannerService.scan(itemC(), cart);
+    cart = scannerService.scan(itemC(), cart);
     Price total = checkoutService.checkout(cart);
 
     assertThat(total.getValue()).isEqualTo(90);
+  }
+
+  private Item itemA() {
+    return new Item("A", 50);
+  }
+
+  private Item itemB() {
+    return new Item("B", 30);
+  }
+
+  private Item itemC() {
+    return new Item("C", 20);
   }
 
 }
