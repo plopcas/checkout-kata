@@ -16,7 +16,7 @@ public class ItemService {
     this.pricingRules = pricingRules;
   }
 
-  public Item find(String itemId) {
+  public Item find(String itemId) throws ItemNotFoundException {
     if (!pricingRules.containsKey(itemId)) {
       throw new ItemNotFoundException(String.format("Item %s not found", itemId));
     }

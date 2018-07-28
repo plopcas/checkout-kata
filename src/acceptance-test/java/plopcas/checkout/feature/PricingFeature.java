@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.File;
 import org.junit.Before;
 import org.junit.Test;
+import plopcas.checkout.exception.ItemNotFoundException;
 import plopcas.checkout.model.Cart;
 import plopcas.checkout.model.Discount;
 import plopcas.checkout.model.Item;
@@ -35,7 +36,7 @@ public class PricingFeature {
   }
 
   @Test
-  public void simpleCheckoutWithPricingRules() {
+  public void simpleCheckoutWithPricingRules() throws ItemNotFoundException {
     PricingRules pricingRules = new PricingRules();
     pricingRules.put("A", new Item("A", 50));
 
@@ -50,7 +51,7 @@ public class PricingFeature {
   }
 
   @Test
-  public void complexCheckoutWithPricingRules() {
+  public void complexCheckoutWithPricingRules() throws ItemNotFoundException {
     PricingRules pricingRules = new PricingRules();
     pricingRules.put("A", new Item("A", 50, new Discount(3, 20)));
     pricingRules.put("B", new Item("B", 30, new Discount(2, 15)));
@@ -74,7 +75,7 @@ public class PricingFeature {
   }
 
   @Test
-  public void complexCheckoutWithExternalPricingRules() {
+  public void complexCheckoutWithExternalPricingRules() throws ItemNotFoundException {
     pricingService =
         new PricingService(new File("src/acceptance-test/resources/pricing_rules_1.csv"));
     
@@ -97,7 +98,7 @@ public class PricingFeature {
   }
 
   @Test
-  public void complexCheckoutWithDifferentExternalPricingRules() {
+  public void complexCheckoutWithDifferentExternalPricingRules() throws ItemNotFoundException {
     pricingService =
         new PricingService(new File("src/acceptance-test/resources/pricing_rules_2.csv"));
     
