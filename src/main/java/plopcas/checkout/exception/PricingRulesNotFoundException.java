@@ -1,7 +1,7 @@
 package plopcas.checkout.exception;
 
 /**
- * Runtime exception indicating that the pricing rules where not found in the specified location.
+ * A checked exception indicating that the pricing rules where not found in the specified location.
  */
 public class PricingRulesNotFoundException extends Exception {
 

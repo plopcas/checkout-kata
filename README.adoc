@@ -48,12 +48,13 @@ gradlew build
 java -jar build\libs\checkout-kata.jar
 ```
 
-You will type the products one by one e.g. _A_, and press enter. Type END and press enter when you are done.
-Valid products are _A, B, C, D_. Pricing rules can be found at `src\main\resources\pricing_rules.csv`.
+You will type the products one by one e.g. _A_, and press enter. The application with throw a message if an invalid or empty product is entered. Type END and press enter when you are done. Valid products are _A, B, C, D_. Pricing rules can be found at `src\main\resources\pricing_rules.csv`.
 
+The location of the pricing rules can be overwritten to point to any file. To do so, pass a parameter.
 
-The application with throw a message if an invalid or empty product is entered.
-
+```
+java -jar build\libs\checkout-kata.jar C:\Temp\pricing_rules.csv
+```
 
 === Architectural Decision Records (ADR)
 

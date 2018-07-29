@@ -20,9 +20,10 @@ public class ItemService {
   }
 
   /**
-   * Fetches an item from the pricing rules by ID
+   * Fetches an item from the pricing rules by ID.
+   * 
    * @param itemId id of the item e.g. A
-   * @return item
+   * @return item, see {@link plopcas.checkout.model.Item}
    * @throws ItemNotFoundException if the item is not found
    */
   public Item find(String itemId) throws ItemNotFoundException {
