@@ -13,19 +13,35 @@ import plopcas.checkout.model.Item;
 import plopcas.checkout.model.PricingRules;
 import plopcas.checkout.utils.StringUtils;
 
+/**
+ * Service that contains the business logic to find and fetch the pricing rules. As for now, it
+ * assumes the pricing rules are in a CSV file with the following format:
+ * 
+ * <pre>
+ * ID,PRICE,UNITS_FOR_DISCOUNT,DISCOUNT
+ * A,50,3,20
+ * B,30,2,15
+ * C,20,,
+ * D,15,,
+ * </pre>
+ */
 public class PricingService {
 
   private static final String CSV_SPLIT_BY = ",";
 
   private File pricingRulesFile;
 
-  public PricingService(File pricingRulesFile) {
+  public PricingService(File pricingRulesFile) throws PricingRulesNotFoundException {
     if (!pricingRulesFile.exists()) {
       throw new PricingRulesNotFoundException();
     }
     this.pricingRulesFile = pricingRulesFile;
   }
 
+  /**
+   * Fetches the pricing rules.
+   * @return pricing rules, see {@link plopcas.checkout.model.PricingRules}
+   */
   public PricingRules getPricingRules() {
 
     PricingRules pricingRules = new PricingRules();

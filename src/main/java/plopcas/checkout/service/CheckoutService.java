@@ -10,8 +10,18 @@ import plopcas.checkout.model.Discount;
 import plopcas.checkout.model.Item;
 import plopcas.checkout.model.Result;
 
+/**
+ * Service that contains the business logic to calculate the checkout for a given cart. It takes
+ * into account possible discounts for the items in the cart.
+ */
 public class CheckoutService {
 
+  /**
+   * Performs a checkout for a given cart and returns the result.
+   * 
+   * @param cart containing the items, see {@link plopcas.checkout.model.Cart}
+   * @return result of the checkout, see {@link plopcas.checkout.model.Result}
+   */
   public Result checkout(Cart cart) {
     if (cart == null) {
       throw new CartNotValidException("Cart is null");

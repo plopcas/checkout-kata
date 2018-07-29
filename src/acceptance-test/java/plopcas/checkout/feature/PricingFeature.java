@@ -5,6 +5,7 @@ import java.io.File;
 import org.junit.Before;
 import org.junit.Test;
 import plopcas.checkout.exception.ItemNotFoundException;
+import plopcas.checkout.exception.PricingRulesNotFoundException;
 import plopcas.checkout.model.Cart;
 import plopcas.checkout.model.Discount;
 import plopcas.checkout.model.Item;
@@ -75,7 +76,8 @@ public class PricingFeature {
   }
 
   @Test
-  public void complexCheckoutWithExternalPricingRules() throws ItemNotFoundException {
+  public void complexCheckoutWithExternalPricingRules()
+      throws ItemNotFoundException, PricingRulesNotFoundException {
     pricingService =
         new PricingService(new File("src/acceptance-test/resources/pricing_rules_1.csv"));
     
@@ -98,7 +100,8 @@ public class PricingFeature {
   }
 
   @Test
-  public void complexCheckoutWithDifferentExternalPricingRules() throws ItemNotFoundException {
+  public void complexCheckoutWithDifferentExternalPricingRules()
+      throws ItemNotFoundException, PricingRulesNotFoundException {
     pricingService =
         new PricingService(new File("src/acceptance-test/resources/pricing_rules_2.csv"));
     

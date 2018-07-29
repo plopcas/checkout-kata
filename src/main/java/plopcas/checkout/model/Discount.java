@@ -1,9 +1,15 @@
 package plopcas.checkout.model;
 
+/**
+ * Model for the discount that can be optionally applied to an item. Typically you get a discount
+ * when you buy many units of a given item.
+ */
 public class Discount {
 
+  // Number of items
   private Integer count;
 
+  // Amount to be deducted from the total
   private Integer value;
 
   public Discount(Integer count, Integer value) {

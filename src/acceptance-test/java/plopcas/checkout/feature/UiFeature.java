@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import org.junit.Test;
 import plopcas.checkout.controller.CheckoutController;
+import plopcas.checkout.exception.PricingRulesNotFoundException;
 import plopcas.checkout.model.PricingRules;
 import plopcas.checkout.model.Result;
 import plopcas.checkout.service.CheckoutService;
@@ -16,7 +17,8 @@ import plopcas.checkout.service.ScannerService;
 public class UiFeature {
 
   @Test
-  public void handleCompleteTransaction() throws FileNotFoundException {
+  public void handleCompleteTransaction()
+      throws FileNotFoundException, PricingRulesNotFoundException {
     File pricingRulesFile = new File("src/acceptance-test/resources/pricing_rules_1.csv");
     PricingService pricingService = new PricingService(pricingRulesFile);
     PricingRules pricingRules = pricingService.getPricingRules();

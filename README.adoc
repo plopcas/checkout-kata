@@ -55,7 +55,7 @@ Valid products are _A, B, C, D_. Pricing rules can be found at `src\main\resourc
 The application with throw a message if an invalid or empty product is entered.
 
 
-=== Architecture Decision Records (ADR)
+=== Architectural Decision Records (ADR)
 
 
 A folder with the architectural decisions is available in `\adr`.

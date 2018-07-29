@@ -1,5 +1,8 @@
 package plopcas.checkout.exception;
 
+/**
+ * A runtime exception indicating the format of a CSV file is not valid.
+ */
 public class CsvFormatNotValidException extends RuntimeException {
 
   // Automatically generated

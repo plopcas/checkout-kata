@@ -2,6 +2,14 @@ package plopcas.checkout.model;
 
 import java.util.Optional;
 
+/**
+ * Model for an item (SKU). It includes:
+ * <ul>
+ * <li>id: typically A, B, C, D</li>
+ * <li>price: value in cents</li>
+ * <li>discount: optional</li>
+ * </ul>
+ */
 public class Item {
 
   private String id;

@@ -1,5 +1,8 @@
 package plopcas.checkout.exception;
 
+/**
+ * Runtime exception indicating the pricing rules are not valid.
+ */
 public class PricingRulesNotValidException extends RuntimeException {
 
   // Automatically generated

@@ -5,6 +5,9 @@ import plopcas.checkout.exception.PricingRulesNotValidException;
 import plopcas.checkout.model.Item;
 import plopcas.checkout.model.PricingRules;
 
+/**
+ * Service that contains the business logic to fetch prices for given items.
+ */
 public class ItemService {
 
   private PricingRules pricingRules;
@@ -16,6 +19,12 @@ public class ItemService {
     this.pricingRules = pricingRules;
   }
 
+  /**
+   * Fetches an item from the pricing rules by ID
+   * @param itemId id of the item e.g. A
+   * @return item
+   * @throws ItemNotFoundException if the item is not found
+   */
   public Item find(String itemId) throws ItemNotFoundException {
     if (!pricingRules.containsKey(itemId)) {
       throw new ItemNotFoundException(String.format("Item %s not found", itemId));

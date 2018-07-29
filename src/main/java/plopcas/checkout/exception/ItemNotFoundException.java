@@ -1,5 +1,8 @@
 package plopcas.checkout.exception;
 
+/**
+ * A checked exception indicating that an item was not found.
+ */
 public class ItemNotFoundException extends Exception {
 
   // Automatically generated

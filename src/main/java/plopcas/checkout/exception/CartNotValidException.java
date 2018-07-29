@@ -1,5 +1,8 @@
 package plopcas.checkout.exception;
 
+/**
+ * A runtime exception indication a cart is not valid for a checkout.
+ */
 public class CartNotValidException extends RuntimeException {
 
   // Automatically generated

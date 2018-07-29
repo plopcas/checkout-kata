@@ -3,6 +3,9 @@ package plopcas.checkout.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Model for a shopping cart that holds all the items for the current checkout transaction.
+ */
 public class Cart {
 
   private List<Item> items;

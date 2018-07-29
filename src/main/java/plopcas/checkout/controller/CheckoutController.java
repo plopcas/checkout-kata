@@ -10,6 +10,9 @@ import plopcas.checkout.service.CheckoutService;
 import plopcas.checkout.service.ItemService;
 import plopcas.checkout.service.ScannerService;
 
+/**
+ * Handles the interaction with the UI to perform a checkout transaction.
+ */
 public class CheckoutController {
 
   private static final String END = "end";
@@ -27,6 +30,11 @@ public class CheckoutController {
     this.checkoutService = checkoutService;
   }
 
+  /**
+   * Handles a checkout transaction.
+   * 
+   * @return result
+   */
   public Result handleCheckoutTransaction() {
     Cart cart = new Cart();
 
